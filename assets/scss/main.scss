@@ -1,6 +1,7 @@
 @import 'variables';
 @import 'mixins';
 
+
 * {
   padding: 0;
   margin: 0;
@@ -27,3 +28,5 @@ a {
 .container {
   padding: 0 10%;
 }
+
+@import './elements/form';

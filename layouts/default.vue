@@ -3,6 +3,7 @@
     Header
     nuxt
     Footer
+    notifications(group="foo" position="bottom right")
 </template>
 <script>
 import Header from '@/components/Header'

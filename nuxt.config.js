@@ -1,3 +1,4 @@
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -29,6 +30,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {src: '~/plugins/vue-notify', ssr: false}
   ],
   /*
   ** Nuxt.js dev-modules
@@ -52,6 +54,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env.BASE_URL || 'http://locahost:3012'
   },
   /*
   ** Build configuration
