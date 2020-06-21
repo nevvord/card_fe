@@ -1,4 +1,4 @@
 <template lang="pug">
-#main_page
-  h1 Main main_page
+#info
+  h1 Info
 </template>

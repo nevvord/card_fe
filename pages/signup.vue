@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    form(@submit.prevent="signUp")
+    form(@submit.prevent="signup({form, $notify})")
       .title Авторизация
       .form-group
         label(for="login") Имя пользователя:
@@ -30,7 +30,7 @@
           placeholder="Пароль"
         )
       .button
-        button(type='submit') Вход
+        button(type='submit') Регистрация
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -47,10 +47,7 @@ export default {
   methods: {
     ...mapActions({
       signup: 'auth/signup'
-    }),
-    signUp () {
-      this.signup({ form: this.form, notify: this.$notify })
-    }
+    })
   }
 }
 </script>

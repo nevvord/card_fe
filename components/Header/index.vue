@@ -6,9 +6,11 @@
       span ts
     .nav-items
       nuxt-link.item(to="/info") Инфа
+      nuxt-link.item(to="/game") Играть
+      nuxt-link.item(to="/deck") Колда
     .auth
-      .autoresized-user(v-if="auth")
-        .user Nevvord
+      nuxt-link.autoresized-user(v-if="auth" to="/profile")
+        .user {{user.login}}
       .un-autoresized-user(v-else)
         nuxt-link.signin(to="/signin") Авторизация
         nuxt-link.signup(to="/signup") Регистрация
@@ -70,6 +72,7 @@ nav {
 
   .nav-items {
     margin: 0 auto 0 0;
+    @include displayFlex;
     .item {
       @include link;
       &:hover {
@@ -92,6 +95,18 @@ nav {
           border-bottom: 1px solid map-get($mainColors, caral);
           box-shadow: inset 0 -1px 0 map-get($mainColors, caral);
         }
+      }
+    }
+    .autoresized-user {
+      @include displayFlex;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: capitalize;
+      color: #fff;
+      cursor: pointer;
+      padding: .5rem;
+      &:hover {
+        color: map-get($mainColors, caral);
       }
     }
   }

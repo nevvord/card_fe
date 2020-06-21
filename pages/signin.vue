@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    form(@submit.prevent="signin")
+    form(@submit.prevent="signin({form, $notify})")
       .title Авторизация
       .form-group
         label(for="login") Имя пользователя:
@@ -24,7 +24,9 @@
         button(type='submit') Вход
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
+  middleware: 'auth',
   data () {
     return {
       form: {
@@ -32,6 +34,11 @@ export default {
         password: null
       }
     }
+  },
+  methods: {
+    ...mapActions({
+      signin: 'auth/signin'
+    })
   }
 }
 </script>
