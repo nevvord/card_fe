@@ -1,7 +1,7 @@
-export default ({ $axios, store, redirect, route }) => {
+export default async ({ $axios, store, redirect, route }) => {
   const token = localStorage.getItem('token')
   if (!token) { return '' }
-  $axios.get('/api/auth/user').then((response) => {
+  await $axios.get('/api/auth/user').then((response) => {
     store.dispatch('auth/signin')
     store.dispatch('auth/updateUser', response.data.user)
     const accesses = response.data.user.accesses
@@ -21,8 +21,7 @@ export default ({ $axios, store, redirect, route }) => {
       store.dispatch('sideBar/changeBar', '')
       redirect('/')
     }
-  }).catch((error) => {
-    console.error(error)
+  }).catch(() => {
     return redirect('/')
   })
 }

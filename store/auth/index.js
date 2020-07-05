@@ -5,13 +5,18 @@ const state = () => ({
 
 const getters = {
   getAuth: state => state._AUTH,
-  getUser: state => state._USER
+  getUser: state => state._USER,
+  getUserLogin: state => state._AUTH ? state._USER.login : ''
 }
 
 const mutations = {
   SIGNIN: (state, user) => {
     state._AUTH = true
     state._USER = user
+  },
+  LOGOUT: (state) => {
+    state._AUTH = false
+    state._USER = null
   }
 }
 
@@ -54,14 +59,12 @@ const actions = {
   getUser ({ commit }, { $notify }) {
     this.$axios.get('/api/auth/user').then((resp) => {
       commit('SIGNIN', resp.data.user)
-      if ($notify) {
-        $notify({
-          group: 'foo',
-          title: 'Регистрация успешна',
-          text: resp.data.msg,
-          type: 'success'
-        })
-      }
+      $notify({
+        group: 'foo',
+        title: 'Регистрация успешна',
+        text: resp.data.msg,
+        type: 'success'
+      })
     }).catch((err) => {
       $notify({
         group: 'foo',
@@ -70,6 +73,15 @@ const actions = {
         type: 'error'
       })
     })
+  },
+  logout ({ commit, state }, { $notify }) {
+    $notify({
+      group: 'foo',
+      title: 'Всего доброго',
+      text: `Буду рад тебя видеть снова <strong>${state._USER.login}</strong>`,
+      type: 'success'
+    })
+    commit('LOGOUT')
   }
 }
 

@@ -7,23 +7,40 @@
     .nav-items
       nuxt-link.item(to="/info") Инфа
       nuxt-link.item(to="/game") Играть
-      nuxt-link.item(to="/deck") Колда
+      nuxt-link.item(to="/deck") Колода
     .auth
-      nuxt-link.autoresized-user(v-if="auth" to="/profile")
-        .user {{user.login}}
+      .autoresized-user(v-if="auth")
+        User(:toggleDropDownMenu="toggleDropDownMenu")
+        DropMenu(v-if="toggles.dropDownMenu" :toggleDropDownMenu="toggleDropDownMenu")
       .un-autoresized-user(v-else)
         nuxt-link.signin(to="/signin") Авторизация
         nuxt-link.signup(to="/signup") Регистрация
 </template>
 <script>
 import { mapGetters } from 'vuex'
-
+import User from './User'
+import DropMenu from './User/DropMenu'
 export default {
+  data () {
+    return {
+      toggles: {
+        dropDownMenu: false
+      }
+    }
+  },
+  components: {
+    User,
+    DropMenu
+  },
   computed: {
     ...mapGetters({
-      auth: 'auth/getAuth',
-      user: 'auth/getUser'
+      auth: 'auth/getAuth'
     })
+  },
+  methods: {
+    toggleDropDownMenu () {
+      this.toggles.dropDownMenu = !this.toggles.dropDownMenu
+    }
   }
 }
 </script>
@@ -80,13 +97,9 @@ nav {
       }
     }
   }
-
   .auth {
     margin-left: auto;
     margin-right: 10px;
-    .autoresized-user {
-
-    }
     .un-autoresized-user {
       @include displayFlex;
       a {
@@ -99,15 +112,13 @@ nav {
     }
     .autoresized-user {
       @include displayFlex;
+      position: relative;
       font-size: 18px;
       font-weight: bold;
       text-transform: capitalize;
       color: #fff;
       cursor: pointer;
       padding: .5rem;
-      &:hover {
-        color: map-get($mainColors, caral);
-      }
     }
   }
 }

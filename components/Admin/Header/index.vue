@@ -9,15 +9,14 @@
       nuxt-link.header__items__item(to="/admin/decks") Колоды
       nuxt-link.header__items__item(to="/admin/generals") Генералы
     .header__user
-      span {{user.login}}
+      span {{login}}
 </template>
 <script>
 import { mapGetters } from 'vuex'
-
 export default {
   computed: {
     ...mapGetters({
-      user: 'auth/getUser'
+      login: 'auth/getUserLogin'
     })
   }
 }

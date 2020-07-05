@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     form(@submit.prevent="signup({form, $notify})")
-      .title Авторизация
+      .title Регистрация
       .form-group
         label(for="login") Имя пользователя:
         input(
